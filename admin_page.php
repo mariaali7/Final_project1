@@ -78,6 +78,18 @@ if(!isset($admin_id)){
 
       <div class="box">
       <?php
+         $select_categories = $conn->prepare("SELECT * FROM `categories`");
+         $select_categories->execute();
+         $number_of_categories = $select_categories->rowCount();
+      ?>
+      <h3><?= $number_of_categories; ?></h3>
+      <p>categories added</p>
+      <a href="admin_categories.php" class="btn">see categories</a>
+      </div>
+
+
+      <div class="box">
+      <?php
          $select_products = $conn->prepare("SELECT * FROM `products`");
          $select_products->execute();
          $number_of_products = $select_products->rowCount();

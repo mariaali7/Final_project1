@@ -17,10 +17,11 @@ if(isset($message)){
 
    <div class="flex">
 
-      <a href="admin_page.php" class="logo">Admin<span>Panel</span></a>
+      <!-- <a href="admin_page.php" class="logo">Admin<span>Panel</span></a> -->
 
-      <nav class="navbar">
+      <nav class="navbar-a">
          <a href="admin_page.php">home</a>
+         <a href="admin_categories.php">categories</a>
          <a href="admin_products.php">products</a>
          <a href="admin_orders.php">orders</a>
          <a href="admin_users.php">users</a>
@@ -42,12 +43,24 @@ if(isset($message)){
          <p><?= $fetch_profile['name']; ?></p>
          <a href="admin_update_profile.php" class="btn">update profile</a>
          <a href="logout.php" class="delete-btn">logout</a>
-         <div class="flex-btn">
+         <!-- <div class="flex-btn">
             <a href="login.php" class="option-btn">login</a>
             <a href="register.php" class="option-btn">register</a>
-         </div>
+         </div> -->
       </div>
 
    </div>
+
+   <div class="sidebar">
+      <img src="./images/logocupsومعاك اصفر.png" alt="Logo">
+      <a href="admin_page.php">home</a>
+      <a href="admin_categories.php">categories</a>
+      <a href="admin_products.php">products</a>
+      <a href="admin_orders.php">orders</a>
+      <a href="admin_users.php">users</a>
+      <a href="admin_contacts.php">messages</a>
+   </div>
+
+
 
 </header>

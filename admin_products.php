@@ -38,7 +38,7 @@ if(isset($_POST['add_product'])){
       $insert_products->execute([$name, $category, $details, $price, $image]);
 
       if($insert_products){
-         if($image_size > 2000000){
+         if($image_size > 20000000){
             $message[] = 'image size is too large!';
          }else{
             move_uploaded_file($image_tmp_name, $image_folder);
@@ -100,10 +100,17 @@ if(isset($_GET['delete'])){
          <input type="text" name="name" class="box" required placeholder="enter product name">
          <select name="category" class="box" required>
             <option value="" selected disabled>select category</option>
-               <option value="vegitables">vegitables</option>
-               <option value="fruits">fruits</option>
-               <option value="meat">meat</option>
-               <option value="fish">fish</option>
+            <?php
+            // Retrieve categories from the database
+            $select_categories = $conn->prepare("SELECT * FROM categories");
+            $select_categories->execute();
+            $categories = $select_categories->fetchAll(PDO::FETCH_ASSOC);
+
+            // Generate the category options
+            foreach ($categories as $category) {
+               echo '<option value="' . $category['name'] . '">' . $category['name'] . '</option>';
+            }
+            ?>
          </select>
          </div>
          <div class="inputBox">
@@ -130,7 +137,7 @@ if(isset($_GET['delete'])){
          while($fetch_products = $show_products->fetch(PDO::FETCH_ASSOC)){  
    ?>
    <div class="box">
-      <div class="price">$<?= $fetch_products['price']; ?>/-</div>
+      <div class="price">JD<?= $fetch_products['price']; ?></div>
       <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <div class="name"><?= $fetch_products['name']; ?></div>
       <div class="cat"><?= $fetch_products['category']; ?></div>

@@ -83,7 +83,14 @@ if(isset($_POST['add_to_cart'])){
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>shop</title>
+ 
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Fira+Sans:wght@200&family=Fredoka:wght@500;600&family=Lexend+Peta:wght@200&family=Lobster&family=Patua+One&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Fira+Sans:wght@200&family=Fredoka:wght@500;600&family=Lexend+Peta:wght@200&family=Lobster&family=Patua+One&family=Spectral:ital@1&display=swap" rel="stylesheet">
 
+ 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -97,10 +104,17 @@ if(isset($_POST['add_to_cart'])){
 
 <section class="p-category">
 
-   <a href="category.php?category=fruits">fruits</a>
-   <a href="category.php?category=vegitables">vegitables</a>
-   <a href="category.php?category=fish">fish</a>
-   <a href="category.php?category=meat">meat</a>
+<?php
+   // Retrieve categories from the database
+   $select_categories = $conn->prepare("SELECT * FROM categories");
+   $select_categories->execute();
+   $categories = $select_categories->fetchAll(PDO::FETCH_ASSOC);
+
+   // Generate the category links
+   foreach ($categories as $category) {
+      echo '<a href="category.php?category=' . $category['name'] . '">' . $category['name'] . '</a>';
+   }
+   ?>
 
 </section>
 
@@ -117,7 +131,7 @@ if(isset($_POST['add_to_cart'])){
          while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
    ?>
    <form action="" class="box" method="POST">
-      <div class="price">$<span><?= $fetch_products['price']; ?></span>/-</div>
+      <div class="price">JD<span><?= $fetch_products['price']; ?></span></div>
       <a href="view_page.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
       <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <div class="name"><?= $fetch_products['name']; ?></div>

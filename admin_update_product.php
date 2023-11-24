@@ -10,46 +10,47 @@ if(!isset($admin_id)){
    header('location:login.php');
 };
 
-if(isset($_POST['update_product'])){
+if (isset($_POST['update_product'])) {
+
+   // استلام القيم من النموذج
 
    $pid = $_POST['pid'];
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $price = $_POST['price'];
-   $price = filter_var($price, FILTER_SANITIZE_STRING);
-   $category = $_POST['category'];
-   $category = filter_var($category, FILTER_SANITIZE_STRING);
-   $details = $_POST['details'];
-   $details = filter_var($details, FILTER_SANITIZE_STRING);
+   $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+   $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
+   $category = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
+   $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
 
    $image = $_FILES['image']['name'];
-   $image = filter_var($image, FILTER_SANITIZE_STRING);
    $image_size = $_FILES['image']['size'];
    $image_tmp_name = $_FILES['image']['tmp_name'];
-   $image_folder = 'uploaded_img/'.$image;
+   $image_folder = 'uploaded_img/' . $image;
    $old_image = $_POST['old_image'];
+
+   // تحديث بيانات المنتج
 
    $update_product = $conn->prepare("UPDATE `products` SET name = ?, category = ?, details = ?, price = ? WHERE id = ?");
    $update_product->execute([$name, $category, $details, $price, $pid]);
 
-   $message[] = 'product updated successfully!';
+   $message[] = 'Product updated successfully!';
 
-   if(!empty($image)){
-      if($image_size > 2000000){
-         $message[] = 'image size is too large!';
-      }else{
+   // التحقق من وجود صورة جديدة وتحديثها
 
+   if (!empty($image)) {
+      if ($image_size > 200000000) {
+         $message[] = 'The size of image is too larg!';
+      } else {
          $update_image = $conn->prepare("UPDATE `products` SET image = ? WHERE id = ?");
          $update_image->execute([$image, $pid]);
 
-         if($update_image){
+         if ($update_image) {
+            if (file_exists('uploaded_img/' . $old_image)) {
+               unlink('uploaded_img/' . $old_image);
+            }
             move_uploaded_file($image_tmp_name, $image_folder);
-            unlink('uploaded_img/'.$old_image);
-            $message[] = 'image updated successfully!';
+            $message[] = 'Image updated successfully!';
          }
       }
    }
-
 }
 
 ?>
@@ -91,11 +92,21 @@ if(isset($_POST['update_product'])){
       <input type="text" name="name" placeholder="enter product name" required class="box" value="<?= $fetch_products['name']; ?>">
       <input type="number" name="price" min="0" placeholder="enter product price" required class="box" value="<?= $fetch_products['price']; ?>">
       <select name="category" class="box" required>
-         <option selected><?= $fetch_products['category']; ?></option>
-         <option value="vegitables">vegitables</option>
-         <option value="fruits">fruits</option>
-         <option value="meat">meat</option>
-         <option value="fish">fish</option>
+      <?php
+   
+   // Retrieve categories from the database
+   $select_categories = $conn->prepare("SELECT * FROM categories");
+   $select_categories->execute();
+   $categories = $select_categories->fetchAll(PDO::FETCH_ASSOC);
+
+   // Generate the category links
+   foreach ($categories as $category) {
+      echo '<option ' . (($category['name'] == $selectedCategoryId) ? 'selected' : '') . '>';
+      echo $category['name'];
+      echo '</option>';
+   }
+   ?>
+
       </select>
       <textarea name="details" required placeholder="enter product details" class="box" cols="30" rows="10"><?= $fetch_products['details']; ?></textarea>
       <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">

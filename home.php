@@ -124,32 +124,27 @@ if(isset($_POST['add_to_cart'])){
    <h2 class="title">shop by category</h2>
 
    <div class="box-container">
-
+   <?php
+      $select_categories = $conn->prepare("SELECT * FROM `categories` ");
+      $select_categories->execute();
+      if($select_categories->rowCount() > 0){
+         while($fetch_categories = $select_categories->fetch(PDO::FETCH_ASSOC)){
+            $category_id = $fetch_categories['id'];
+            $category_name = $fetch_categories['name'];
+            $category_image = $fetch_categories['image'];
+   ?>
       <div class="box">
-         <img src="images/fruit/Copy of 05.jpg" alt="">
-         <!-- <h3>fruits</h3> -->
-         <a href="category.php?category=fruits" class="btn">fruits</a>
+         <img src="uploaded_img/<?= $category_image; ?>" alt="">
+         <a href="category.php?category=<?= $category_name; ?>" class="btn"><?= $category_name; ?></a>
       </div>
-
-      <div class="box">
-         <img src="images/fruit/Copy of 02.jpg" alt="">
-         <!-- <h3>meat</h3> -->
-         <a href="category.php?category=meat" class="btn">meat</a>
-      </div>
-
-      <div class="box">
-         <img src="images/fruit/Copy of 12.jpg" alt="">
-         <!-- <h3>vegitables</h3> -->
-         <a href="category.php?category=vegitables" class="btn">vegitables</a>
-      </div>
-
-      <div class="box">
-         <img src="images/fruit/Copy of Copy of 03.jpg" alt="">
-         <!-- <h3>fish</h3> -->
-         <a href="category.php?category=fish" class="btn">fish</a>
-      </div>
-
-   </div>
+   
+      <?php
+         }
+      }else{
+         echo '<p class="empty">No products available!</p>';
+      }
+   ?>
+</div>
 
 </section>
 
@@ -166,7 +161,7 @@ if(isset($_POST['add_to_cart'])){
          while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
    ?>
    <form action="" class="box" method="POST">
-      <div class="price">$<span><?= $fetch_products['price']; ?></span>/-</div>
+      <div class="price">JD<span><?= $fetch_products['price']; ?></span></div>
       <a href="view_page.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
       <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <div class="name"><?= $fetch_products['name']; ?></div>

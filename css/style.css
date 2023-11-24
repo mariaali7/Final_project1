@@ -283,7 +283,7 @@ font-family: 'Patua One', serif;
    padding:1.2rem 1.4rem;
    font-size: 1.8rem;
    color:var(--black);
-   border:var(--border);
+   /* border:var(--border); */
    width: 20%;
    
 }
@@ -316,7 +316,7 @@ font-family: 'Patua One', serif;
 .p-category a{
    padding:1.5rem;
    text-align: center;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -332,41 +332,58 @@ font-family: 'Patua One', serif;
 
 .about .row{
    display: flex;
-   flex-wrap: wrap;
-   gap:3rem;
    align-items: center;
+   flex-wrap: wrap;
+   gap:1.5rem;
 }
 
-.about .row .box{
-   flex:1 1 40rem;
-   text-align: center;
-}
-
-.about .row .box img{
-   margin-bottom: 2rem;
-   height: 40rem;
-}
-
-.about .row .box h3{
-   padding:1rem 0;
-   font-size: 2.5rem;
-   text-transform: uppercase;
-   color:var(--black);
-}
-
-.about .row .box p{
-   line-height: 2;
-   font-size: 1.5rem;
-   color:var(--light-color);
-   padding:1rem 0;
-}
-
-.about .row .box .btn{
-   display: inline-block;
-   width: auto;
+.about .row .image{
+   flex:1 1 30rem;
    
 }
 
+.about .row .image img{
+   width: 30rem;
+   height: 40rem;
+   border-radius: 50%;
+}
+
+.about .row .image2 img{
+   width: 30rem;
+   height: 40rem;
+   border-radius: 50%;
+   margin-left: 25rem;
+}
+
+
+.about .row .content{
+   flex:1 1 30rem;
+   text-align: center;
+}
+
+
+.about .row .content h3{
+   font-size: 3rem;
+   color:#fecd0b;
+   text-transform: capitalize;
+   margin-bottom: 1rem;
+   font-family: 'Concert One', sans-serif;
+   font-family: 'Fira Sans', sans-serif;
+   font-family: 'Fredoka', sans-serif;
+   font-family: 'Lexend Peta', sans-serif;
+   font-family: 'Lobster', sans-serif;
+   font-family: 'Patua One', serif;
+   font-family: 'Spectral', serif;
+}
+
+.about .row .content p{
+   padding:1rem 0;
+   line-height: 2;
+   font-size: 2rem;
+   color:var(--light-color);
+   text-align: left;
+
+}
 .reviews .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -378,7 +395,7 @@ font-family: 'Patua One', serif;
 .reviews .box-container .box{
    padding:2rem;
    text-align: center;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -403,7 +420,7 @@ font-family: 'Patua One', serif;
    display: inline-block;
    padding:1rem;
    background-color: var(--light-bg);
-   border:var(--border);
+   /* border:var(--border); */
    border-radius: .5rem;
    margin:.5rem 0;
 }
@@ -420,33 +437,113 @@ font-family: 'Patua One', serif;
    font-size: 2rem;
 }
 
-.contact form{
-   margin:0 auto;
-   max-width: 50rem;
-   padding:2rem;
+.contact {
    text-align: center;
-   border:var(--border);
+   padding: 50px;
+}
+
+.contact-container {
+   display: flex;
+   justify-content: space-around;
+   flex-wrap: wrap;
+   gap: 50px;
+}
+
+.contact-form {
+   flex: 1;
+   max-width: 400px; /* Adjust the width as needed */
+   margin: 0 auto;
+   max-width: 60rem;
+   padding: 2rem;
+   text-align: left;
+   /* border: 2px solid #fecd0b; Modified border style and color */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
-   border-radius: .5rem;
+   border-radius: 0.5rem;
    padding-top: 1rem;
 }
 
-.contact form .box{
+.box {
    width: 100%;
-   padding:1.2rem 1.4rem;
-   border:var(--border);
-   margin:1rem 0;
-   background-color: var(--light-bg);
-   font-size: 1.8rem;
-   color:var(--black);
-   border-radius: .5rem;
+   margin-bottom: 10px;
+   padding: 10px;
+   box-sizing: border-box;
 }
 
-.contact form textarea{
+/* .btn {
+   display: block;
+   width: 100%;
+   padding: 10px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+} */
+
+.location {
+   flex: 1;
+   max-width: 600px; /* Adjust the width as needed */
+}
+
+iframe {
+   width: 100%;
+   height: 450px;
+   border: 0;
+}
+
+
+/* .contact form {
+   margin: 0 auto;
+   max-width: 60rem;
+   padding: 2rem;
+   text-align: left;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: 0.5rem;
+   padding-top: 1rem;
+} */
+
+
+
+.contact h1{
+   color: #fecd0b;
+   margin-top: 12rem;
+   margin-bottom: 8rem;
+}
+
+.contact form .box {
+   width: 100%;
+   padding: 1.2rem 1.4rem;
+   border: 2px solid #fecd0b; /* Modified border style and color */
+   margin: 1rem 0;
+   background-color: var(--light-bg);
+   font-size: 1.8rem;
+   color: var(--black);
+   border-radius: 0.5rem;
+}
+
+.contact form textarea {
    height: 15rem;
    resize: none;
 }
+
+.contact form input[type="submit"] {
+   background-color: #fecd0b; /* Button background color */
+   color: var(--white);
+   font-size: 1.8rem;
+   padding: 1.2rem 2rem; /* Adjusted padding for the button */
+   border: none;
+   border-radius: 0.5rem;
+   cursor: pointer;
+   transition: background-color 0.3s ease; /* Added a smooth transition for hover effect */
+}
+
+.contact form input[type="submit"]:hover {
+   background-color: var(--black);
+}
+
+
 
 .search-form form{
    display: flex;
@@ -457,7 +554,7 @@ font-family: 'Patua One', serif;
 .search-form form .box{
    width: 100%;
    padding:1.4rem;
-   border:var(--border);
+   /* border:var(--border); */
    margin:1rem 0;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
@@ -483,21 +580,22 @@ font-family: 'Patua One', serif;
 .wishlist .box-container .box{
    padding:2rem;
    text-align: center;
-   border:var(--border);
+   border:#fecd0b 2px;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
-   border-radius: .5rem;
+   border-radius: 3rem;
    position: relative;
 }
 
 .wishlist .box-container .box .price{
-   padding:1rem 0;
-   color:var(--red);
-   font-size: 2.5rem;
+   padding:1rem;
+   border-radius: 3rem;
+   font-size: 1.8rem;
+   color:var(--black);
 }
 
 .wishlist .box-container .box .price span{
-   font-size: 2.5rem;
+   font-size: 7rem;
    color:var(--white);
    margin:0 .2rem;
 }
@@ -505,11 +603,11 @@ font-family: 'Patua One', serif;
 .wishlist .box-container .box .fa-eye{
    position: absolute;
    top:1rem; right:1rem;
-   border-radius: .5rem;
+   border-radius: 3rem;
    height: 4.5rem;
    line-height: 4.3rem;
    width: 5rem;
-   border:var(--border);
+   /* border:var(--border); */
    color:var(--black);
    font-size: 2rem;
    background-color: var(--white);
@@ -517,7 +615,7 @@ font-family: 'Patua One', serif;
 
 .wishlist .box-container .box .fa-eye:hover{
    color:var(--white);
-   background-color: var(--black);
+   background-color: #fecd0b;
 }
 
 .wishlist .box-container .box .fa-times{
@@ -530,6 +628,7 @@ font-family: 'Patua One', serif;
    color:var(--white);
    font-size: 2rem;
    background-color: var(--red);
+   border-radius: 50%;
 }
 
 .wishlist .box-container .box .fa-times:hover{
@@ -553,7 +652,7 @@ font-family: 'Patua One', serif;
    padding:1.2rem 1.4rem;
    font-size: 1.8rem;
    color:var(--black);
-   border:var(--border);
+   /* border:var(--border); */
    width: 100%;
 }
 
@@ -563,7 +662,7 @@ font-family: 'Patua One', serif;
    margin-top: 2rem;
    padding:2rem;
    text-align: center;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -579,6 +678,19 @@ font-family: 'Patua One', serif;
    color:var(--red);
 }
 
+
+.shopping-cart .title{
+   font-family: 'Concert One', sans-serif;
+   font-family: 'Fira Sans', sans-serif;
+   font-family: 'Fredoka', sans-serif;
+   font-family: 'Lexend Peta', sans-serif;
+   font-family: 'Lobster', sans-serif;
+   font-family: 'Patua One', serif;
+   color: #fecd0b;
+   margin-bottom: 6rem;
+}
+
+
 .shopping-cart .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, 35rem);
@@ -590,33 +702,35 @@ font-family: 'Patua One', serif;
 .shopping-cart .box-container .box{
    padding:2rem;
    text-align: center;
-   border:var(--border);
+   border:#fecd0b 2px;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
-   border-radius: .5rem;
+   border-radius: 3rem;
    position: relative;
 }
 
 .shopping-cart .box-container .box .price{
-   padding:1rem 0;
-   color:var(--red);
-   font-size: 2.5rem;
+   padding:1rem;
+   border-radius: 3rem;
+   font-size: 1.8rem;
+   color:var(--black);
+
 }
 
 .shopping-cart .box-container .box .price span{
-   font-size: 2.5rem;
+   font-size: 7rem;
    color:var(--white);
    margin:0 .2rem;
 }
 
 .shopping-cart .box-container .box .fa-eye{
-   position: absolute;
+     position: absolute;
    top:1rem; right:1rem;
-   border-radius: .5rem;
+   border-radius: 3rem;
    height: 4.5rem;
    line-height: 4.3rem;
    width: 5rem;
-   border:var(--border);
+   /* border:var(--border); */
    color:var(--black);
    font-size: 2rem;
    background-color: var(--white);
@@ -624,7 +738,7 @@ font-family: 'Patua One', serif;
 
 .shopping-cart .box-container .box .fa-eye:hover{
    color:var(--white);
-   background-color: var(--black);
+   background-color: #fecd0b;
 }
 
 .shopping-cart .box-container .box .fa-times{
@@ -637,6 +751,7 @@ font-family: 'Patua One', serif;
    color:var(--white);
    font-size: 2rem;
    background-color: var(--red);
+   border-radius: 50%;
 }
 
 .shopping-cart .box-container .box .fa-times:hover{
@@ -660,7 +775,7 @@ font-family: 'Patua One', serif;
    padding:1.2rem 1.4rem;
    font-size: 1.8rem;
    color:var(--black);
-   border:var(--border);
+   /* border:var(--border); */
    width: 100%;
 }
 
@@ -680,7 +795,7 @@ font-family: 'Patua One', serif;
    margin-top: 2rem;
    padding:2rem;
    text-align: center;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -707,7 +822,7 @@ font-family: 'Patua One', serif;
    margin:1rem .5rem;
    font-size: 2rem;
    text-align: center;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -729,7 +844,7 @@ font-family: 'Patua One', serif;
 
 .checkout-orders form{
    padding:2rem;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -759,7 +874,7 @@ font-family: 'Patua One', serif;
 
 .checkout-orders form .flex .inputBox .box{
    width: 100%;
-   border:var(--border);
+   /* border:var(--border); */
    border-radius: .5rem;
    font-size: 1.8rem;
    color:var(--black);
@@ -783,7 +898,7 @@ font-family: 'Patua One', serif;
 .placed-orders .box-container .box{
    padding:1rem 2rem;
    flex:1 1 40rem;
-   border:var(--border);
+   /* border:var(--border); */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;

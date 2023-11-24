@@ -32,6 +32,47 @@
    color:var(--black);
 }
 
+.header .sidebar {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 23rem;
+   background-color: #333;
+   height: 100vh;
+   padding-top: 6rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.header .sidebar a {
+   color: white;
+   text-decoration: none;
+   font-size: 1.8rem;
+   padding: 1.5rem;
+   /* margin-bottom: 1rem; */
+   width: 100%;
+   text-align: center;
+   border-bottom: 1px solid white;
+}
+
+.header .sidebar a:hover {
+   background-color: #555;
+}
+
+.header .sidebar img{
+   height: 6rem;
+   width: 6rem;
+   margin-bottom: 4rem;
+}
+/* Add this media query to hide the sidebar on smaller screens */
+@media (max-width: 768px) {
+   .header .sidebar {
+      display: none;
+   }
+}
+
 .add-products form{
    max-width: 70rem;
    padding:2rem;
@@ -98,12 +139,13 @@
    font-size: 2rem;
    color:var(--white);
    background-color: var(--red);
-   border-radius: .5rem;
+   border-radius: 2rem;
 }
 
 .show-products .box-container .box img{
    width: 100%;
    margin-bottom: 1rem;
+   border-radius: 2rem;
 }
 
 .show-products .box-container .box .name{
@@ -152,6 +194,130 @@
    color:var(--black);
    margin:1rem 0;
 }
+
+
+.add-categories form{
+   max-width: 70rem;
+   padding:2rem;
+   margin:0 auto;
+   text-align: center;
+   border:var(--border);
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   border-radius: .5rem;
+}
+
+.add-categories form .flex{
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+}
+
+.add-categories form .flex .inputBox{
+   width: 49%;
+}
+
+.add-categories form .box{
+   width: 100%;
+   margin:1rem 0;
+   padding:1.2rem 1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   border:var(--border);
+}
+
+.add-categories form textarea{
+   height: 20rem;
+   resize: none;
+}
+
+.show-categories{
+   padding-top: 0;
+}
+
+.show-categories .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   align-items: flex-start;
+   justify-content:center;
+}
+
+.show-categories .box-container .box{
+   text-align: center;
+   border:var(--border);
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   border-radius: .5rem;
+   padding:2rem;
+   position: relative;
+}
+
+.show-categories .box-container .box .price{
+   position: absolute;
+   top:1rem; left:1rem;
+   padding:1rem;
+   font-size: 2rem;
+   color:var(--white);
+   background-color: var(--red);
+   border-radius: .5rem;
+}
+
+.show-categories .box-container .box img{
+   width: 100%;
+   margin-bottom: 1rem;
+}
+
+.show-categories .box-container .box .name{
+   margin:.5rem 0;
+   font-size: 2rem;
+   color:var(--black);
+}
+
+.show-categories .box-container .box .cat{
+   font-size: 1.8rem;
+   color:var(--green);
+}
+
+.show-categories .box-container .box .details{
+   padding-top: 1rem;
+   font-size: 1.5rem;
+   line-height: 1.5;
+   color:var(--light-color);
+}
+
+.update-category form{
+   max-width: 50rem;
+   padding:2rem;
+   margin:0 auto;
+   text-align: center;
+   border:var(--border);
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   border-radius: .5rem;
+}
+
+.update-category form img{
+   height: 25rem;
+   object-fit: cover;
+   margin-bottom: 1rem;
+}
+
+.update-category form .box{
+   width: 100%;
+   border:var(--border);
+   background-color: var(--white);
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   padding:1.2rem 1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   margin:1rem 0;
+}
+
+
 
 .placed-orders .box-container{
    display: grid;
@@ -270,6 +436,10 @@
       width: 100%;
    }
 
+
+   .add-categories form .flex .inputBox{
+      width: 100%;
+   }
 }
 
 
@@ -281,6 +451,15 @@
    }
 
    .update-product form img{
+      height: auto;
+      width: 100%;
+   }
+
+   .show-category .box-container{
+      grid-template-columns: 1fr;
+   }
+
+   .update-category form img{
       height: auto;
       width: 100%;
    }
