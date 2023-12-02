@@ -42,25 +42,28 @@ if(isset($_GET['delete'])){
 
 <section class="user-accounts">
 
-   <h1 class="title">user accounts</h1>
+   <h1 class="title">admins accounts</h1>
 
    <div class="box-container">
 
       <?php
-         $select_users = $conn->prepare("SELECT * FROM `users`");
-         $select_users->execute();
+         $select_users = $conn->prepare("SELECT * FROM `users` WHERE user_type = ?");
+         $select_users->execute(['user']);
          while($fetch_users = $select_users->fetch(PDO::FETCH_ASSOC)){
+            if($fetch_users['id'] == $admin_id){
+               continue; // Skip the current admin user
+            }
       ?>
-      <div class="box" style="<?php if($fetch_users['id'] == $admin_id){ echo 'display:none'; }; ?>">
+      <div class="box">
          <!-- <img src="uploaded_img/<?= $fetch_users['image']; ?>" alt=""> -->
          <p> user id : <span><?= $fetch_users['id']; ?></span></p>
          <p> username : <span><?= $fetch_users['name']; ?></span></p>
          <p> email : <span><?= $fetch_users['email']; ?></span></p>
-         <p> user type : <span style=" color:<?php if($fetch_users['user_type'] == 'admin'){ echo 'orange'; }; ?>"><?= $fetch_users['user_type']; ?></span></p>
+         <p> user type : <span style="color:<?= ($fetch_users['user_type'] == 'admin') ? 'orange' : ''; ?>"><?= $fetch_users['user_type']; ?></span></p>
          <a href="admin_users.php?delete=<?= $fetch_users['id']; ?>" onclick="return confirm('delete this user?');" class="delete-btn">delete</a>
       </div>
       <?php
-      }
+         }
       ?>
    </div>
 

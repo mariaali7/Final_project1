@@ -20,26 +20,26 @@ if(isset($_POST['update_profile'])){
    $update_profile = $conn->prepare("UPDATE `users` SET name = ?, email = ? WHERE id = ?");
    $update_profile->execute([$name, $email, $admin_id]);
 
-   $image = $_FILES['image']['name'];
-   $image = filter_var($image, FILTER_SANITIZE_STRING);
-   $image_size = $_FILES['image']['size'];
-   $image_tmp_name = $_FILES['image']['tmp_name'];
-   $image_folder = 'uploaded_img/'.$image;
-   $old_image = $_POST['old_image'];
+   // $image = $_FILES['image']['name'];
+   // $image = filter_var($image, FILTER_SANITIZE_STRING);
+   // $image_size = $_FILES['image']['size'];
+   // $image_tmp_name = $_FILES['image']['tmp_name'];
+   // $image_folder = 'uploaded_img/'.$image;
+   // $old_image = $_POST['old_image'];
 
-   if(!empty($image)){
-      if($image_size > 2000000){
-         $message[] = 'image size is too large!';
-      }else{
-         $update_image = $conn->prepare("UPDATE `users` SET image = ? WHERE id = ?");
-         $update_image->execute([$image, $admin_id]);
-         if($update_image){
-            move_uploaded_file($image_tmp_name, $image_folder);
-            unlink('uploaded_img/'.$old_image);
-            $message[] = 'image updated successfully!';
-         };
-      };
-   };
+   // if(!empty($image)){
+   //    if($image_size > 2000000){
+   //       $message[] = 'image size is too large!';
+   //    }else{
+   //       $update_image = $conn->prepare("UPDATE `users` SET image = ? WHERE id = ?");
+   //       $update_image->execute([$image, $admin_id]);
+   //       if($update_image){
+   //          move_uploaded_file($image_tmp_name, $image_folder);
+   //          unlink('uploaded_img/'.$old_image);
+   //          $message[] = 'image updated successfully!';
+   //       };
+   //    };
+   // };
 
    $old_pass = $_POST['old_pass'];
    $update_pass = md5($_POST['update_pass']);
@@ -89,16 +89,13 @@ if(isset($_POST['update_profile'])){
    <h1 class="title">update profile</h1>
 
    <form action="" method="POST" enctype="multipart/form-data">
-      <img src="uploaded_img/<?= $fetch_profile['image']; ?>" alt="">
       <div class="flex">
          <div class="inputBox">
             <span>username :</span>
             <input type="text" name="name" value="<?= $fetch_profile['name']; ?>" placeholder="update username" required class="box">
             <span>email :</span>
             <input type="email" name="email" value="<?= $fetch_profile['email']; ?>" placeholder="update email" required class="box">
-            <span>update pic :</span>
-            <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box">
-            <input type="hidden" name="old_image" value="<?= $fetch_profile['image']; ?>">
+          
          </div>
          <div class="inputBox">
             <input type="hidden" name="old_pass" value="<?= $fetch_profile['password']; ?>">

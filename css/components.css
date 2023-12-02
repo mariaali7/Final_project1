@@ -83,6 +83,9 @@ section{
    cursor: pointer;
    text-align: center;
 }
+
+
+
 .option-btn{
    background-color: black !important;
 }
@@ -97,6 +100,10 @@ section{
 .option-btn{
    background-color: var(--black);
 }
+
+
+
+
 
 .btn:hover,
 .delete-btn:hover,
@@ -245,15 +252,11 @@ section{
    margin:0 2rem;
    font-size: 2rem;
    color:black;
- 
 }
 
-.header .flex .navbar-a a{
-   margin:0 2rem;
-   font-size: 2rem;
-   color:black;
-   display: none;
-}
+
+
+
 
 .header .flex .navbar a:hover{
    color:#fecd0b;
@@ -267,6 +270,54 @@ section{
 
    
 }
+
+.header .sidebar {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 23rem;
+   background-color: #333;
+   height: 100vh;
+   padding-top: 6rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.header .sidebar a {
+   color: white;
+   text-decoration: none;
+   font-size: 1.8rem;
+   padding: 1.5rem;
+   /* margin-bottom: 1rem; */
+   width: 100%;
+   text-align: center;
+   border-bottom: 1px solid white;
+}
+
+.header .sidebar a:hover {
+   background-color: #555;
+}
+
+.header .sidebar img{
+   height: 6rem;
+   width: 6rem;
+   margin-bottom: 4rem;
+}
+/* Add this media query to hide the sidebar on smaller screens */
+@media (max-width: 450px) {
+   .header .sidebar {
+      display: none;
+   }
+}
+
+@media (max-width: 768px) {
+   .header .sidebar {
+      display: none;
+   }
+}
+
 
 
 .header .flex .icons a span,
@@ -285,6 +336,9 @@ section{
 
 #menu-btn{
    display: none;
+   color: #fecd0b;
+   font-size: 3rem;
+   padding: 1rem;
 }
 
 .header .flex .profile{
@@ -469,26 +523,23 @@ section{
       transition: .2s linear;
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
    }
-
- 
-
+  
 
    .header .flex .navbar.active{
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
    }
 
-   .header .flex .navbar-a .active{
+
+   .header .flex .navbar-a.active{
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
    }
 
-   .header .flex .navbar a{
-      display: block;
-      margin:2rem;   
-   }
-   .header .flex .navbar-a a{
-      display: block;
-      margin:2rem;   
-   }
+
+
+
+
+  
+
 
 
    .update-profile form .flex{

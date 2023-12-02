@@ -5,6 +5,8 @@ document.querySelector('#menu-btn').onclick = () =>{
    profile.classList.remove('active');
 }
 
+
+
 let profile = document.querySelector('.header .flex .profile');
 
 document.querySelector('#user-btn').onclick = () =>{
@@ -16,3 +18,6 @@ window.onscroll = () =>{
    profile.classList.remove('active');
    navbar.classList.remove('active');
 }
+
+
+

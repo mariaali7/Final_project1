@@ -4,13 +4,15 @@
 
 session_start();
 
-$user_id = $_SESSION['user_id'];
 
-if(!isset($user_id)){
-   header('location:login.php');
-};
+
+if (isset($_SESSION['user_id'])) {
+   $user_id = $_SESSION['user_id'];
+   // Additional code related to logged-in user, if needed
+}
 
 if(isset($_POST['add_to_wishlist'])){
+   if(isset($user_id)){
 
    $pid = $_POST['pid'];
    $pid = filter_var($pid, FILTER_SANITIZE_STRING);
@@ -37,9 +39,14 @@ if(isset($_POST['add_to_wishlist'])){
       $message[] = 'added to wishlist!';
    }
 
+} else {
+   header('location:login.php');
+   exit();
+}
 }
 
 if(isset($_POST['add_to_cart'])){
+   if(isset($user_id)){
 
    $pid = $_POST['pid'];
    $pid = filter_var($pid, FILTER_SANITIZE_STRING);
@@ -72,9 +79,17 @@ if(isset($_POST['add_to_cart'])){
       $message[] = 'added to cart!';
    }
 
+} else {
+   header('location:login.php');
+   exit();
+}
 }
 
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +126,7 @@ if(isset($_POST['add_to_cart'])){
       <div class="content">
          <span>Enjoy Our Selection</span>
          <h3>Welcome to Abo Ala'a cafe</h3>
-         <p>Experience the perfect blend of coffee, refreshing milkshakes, and delightful juices in a cozy ambiance.</p>
+         <p>Experience the perfect blend of coffee, refreshing milkshakes, and delightful juices.</p>
          <a href="about.php" class="btn">Explore Our Menu</a>
       </div>
 
@@ -162,7 +177,7 @@ if(isset($_POST['add_to_cart'])){
    ?>
    <form action="" class="box" method="POST">
       <div class="price">JD<span><?= $fetch_products['price']; ?></span></div>
-      <a href="view_page.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
+      <!-- <a href="view_page.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a> -->
       <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <div class="name"><?= $fetch_products['name']; ?></div>
       <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">

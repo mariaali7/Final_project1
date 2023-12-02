@@ -73,16 +73,16 @@ if(isset($_POST['update_qty'])){
    ?>
    <form action="" method="POST" class="box">
       <a href="cart.php?delete=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this from cart?');"></a>
-      <a href="view_page.php?pid=<?= $fetch_cart['pid']; ?>" class="fas fa-eye"></a>
+      <!-- <a href="view_page.php?pid=<?= $fetch_cart['pid']; ?>" class="fas fa-eye"></a> -->
       <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
       <div class="name"><?= $fetch_cart['name']; ?></div>
-      <div class="price">$<?= $fetch_cart['price']; ?>/-</div>
+      <div class="price"><?= $fetch_cart['price']; ?>JD</div>
       <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
       <div class="flex-btn">
          <input type="number" min="1" value="<?= $fetch_cart['quantity']; ?>" class="qty" name="p_qty">
          <input type="submit" value="update" name="update_qty" class="option-btn">
       </div>
-      <div class="sub-total"> sub total : <span>$<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?>/-</span> </div>
+      <div class="sub-total"> sub total : <span>JD<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?></span> </div>
    </form>
    <?php
       $grand_total += $sub_total;

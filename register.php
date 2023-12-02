@@ -2,50 +2,58 @@
 
 include 'config.php';
 
-if(isset($_POST['submit'])){
+$message = [];
 
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $pass = md5($_POST['pass']);
-   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-   $cpass = md5($_POST['cpass']);
-   $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+if (isset($_POST['submit'])) {
+   $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+   $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
+   $pass = $_POST['pass'];
+   $cpass = $_POST['cpass'];
 
-   $image = $_FILES['image']['name'];
-   $image = filter_var($image, FILTER_SANITIZE_STRING);
-   $image_size = $_FILES['image']['size'];
-   $image_tmp_name = $_FILES['image']['tmp_name'];
-   $image_folder = 'uploaded_img/'.$image;
-
-   $select = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
-   $select->execute([$email]);
-
-   if($select->rowCount() > 0){
-      $message[] = 'user email already exist!';
-   }else{
-      if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
-      }else{
-         $insert = $conn->prepare("INSERT INTO `users`(name, email, password, image) VALUES(?,?,?,?)");
-         $insert->execute([$name, $email, $pass, $image]);
-
-         if($insert){
-            if($image_size > 2000000){
-               $message[] = 'image size is too large!';
-            }else{
-               move_uploaded_file($image_tmp_name, $image_folder);
-               $message[] = 'registered successfully!';
-               header('location:login.php');
-            }
-         }
-
-      }
+   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+       $message[] = 'Invalid email address!';
    }
 
-}
+   // Ensure password meets the specified criteria
+   if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $pass)) {
+       $message[] = 'Password should contain at least 8 characters, including uppercase letters, lowercase letters, numbers, and special characters!';
+   }
 
+   if ($pass != $cpass) {
+       $message[] = 'Confirm password not matched!';
+   }
+
+   if (empty($message)) {
+       $select = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
+       $select->execute([$email]);
+
+       if ($select->rowCount() > 0) {
+           $message[] = 'User email already exists!';
+       } else {
+           // Use password_hash for secure password hashing
+           $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+
+           $image = $_FILES['image']['name'];
+           $image_size = $_FILES['image']['size'];
+           $image_tmp_name = $_FILES['image']['tmp_name'];
+           $image_folder = 'uploaded_img/' . $image;
+
+           $insert = $conn->prepare("INSERT INTO `users` (name, email, password, image) VALUES (?, ?, ?, ?)");
+           $insert->execute([$name, $email, $hashedPassword, $image]);
+
+           if ($insert) {
+               if ($image_size > 2000000) {
+                   $message[] = 'Image size is too large!';
+               } else {
+                   move_uploaded_file($image_tmp_name, $image_folder);
+                   $message[] = 'Registered successfully!';
+                   header('location: login.php');
+                   exit(); // Stop script execution after redirection
+               }
+           }
+       }
+   }
+}
 ?>
 
 <!DOCTYPE html>

@@ -4,11 +4,11 @@
 
 session_start();
 
-$user_id = $_SESSION['user_id'];
-
-if(!isset($user_id)){
-   header('location:login.php');
-}
+if(isset($_SESSION['user_id'])){
+   $user_id = $_SESSION['user_id'];
+}else{
+   $user_id = '';
+};
 
 ?>
 
@@ -43,7 +43,7 @@ if(!isset($user_id)){
    <div class="row">
 
       <div class="image">
-         <img src="images/fruit/Copy of 12.jpg" alt="">
+         <img src="images/WhatsApp Image 2023-11-17 at 16.23.24.jpeg" alt="">
       </div>
 
       <div class="content">
@@ -68,7 +68,7 @@ if(!isset($user_id)){
  
 </div>
 <div class="image2">
-   <img src="images/fruit/Copy of Copy of 03.jpg" alt="">
+   <img src="images/WhatsApp Image 2023-11-17 at 16.23.23 (1).jpeg" alt="">
 </div>
 </div>
 

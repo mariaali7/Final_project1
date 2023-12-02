@@ -107,19 +107,9 @@ if(!isset($admin_id)){
       ?>
       <h3><?= $number_of_users; ?></h3>
       <p>total users</p>
-      <a href="admin_users.php" class="btn">see accounts</a>
+      <a href="users_admins.php" class="btn">see accounts</a>
       </div>
 
-      <div class="box">
-      <?php
-         $select_admins = $conn->prepare("SELECT * FROM `users` WHERE user_type = ?");
-         $select_admins->execute(['admin']);
-         $number_of_admins = $select_admins->rowCount();
-      ?>
-      <h3><?= $number_of_admins; ?></h3>
-      <p>total admins</p>
-      <a href="admin_users.php" class="btn">see accounts</a>
-      </div>
 
       <div class="box">
       <?php

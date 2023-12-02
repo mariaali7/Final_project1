@@ -20,7 +20,7 @@ if(isset($_POST['order'])){
    $email = filter_var($email, FILTER_SANITIZE_STRING);
    $method = $_POST['method'];
    $method = filter_var($method, FILTER_SANITIZE_STRING);
-   $address = 'flat no. '. $_POST['flat'] .' '. $_POST['street'] .' '. $_POST['city'] .' '. $_POST['state'] .' '. $_POST['country'] .' - '. $_POST['pin_code'];
+   $address = 'flat no. '. $_POST['flat'] .' '. $_POST['street'] .' '. $_POST['city'] ;
    $address = filter_var($address, FILTER_SANITIZE_STRING);
    $placed_on = date('d-M-Y');
 
@@ -96,7 +96,7 @@ if(isset($_POST['order'])){
             $cart_total_price = ($fetch_cart_items['price'] * $fetch_cart_items['quantity']);
             $cart_grand_total += $cart_total_price;
    ?>
-   <p> <?= $fetch_cart_items['name']; ?> <span>(<?= '$'.$fetch_cart_items['price'].'/- x '. $fetch_cart_items['quantity']; ?>)</span> </p>
+   <p> <?= $fetch_cart_items['name']; ?> <span>(<?= $fetch_cart_items['price'].'JD x '. $fetch_cart_items['quantity']; ?>)</span> </p>
    <?php
     }
    }else{
@@ -129,9 +129,7 @@ if(isset($_POST['order'])){
             <span>payment method :</span>
             <select name="method" class="box" required>
                <option value="cash on delivery">cash on delivery</option>
-               <option value="credit card">credit card</option>
-               <option value="paytm">paytm</option>
-               <option value="paypal">paypal</option>
+      
             </select>
          </div>
          <div class="inputBox">
@@ -146,18 +144,18 @@ if(isset($_POST['order'])){
             <span>city :</span>
             <input type="text" name="city" placeholder="e.g. mumbai" class="box" required>
          </div>
-         <div class="inputBox">
+         <!-- <div class="inputBox">
             <span>state :</span>
             <input type="text" name="state" placeholder="e.g. maharashtra" class="box" required>
          </div>
          <div class="inputBox">
             <span>country :</span>
             <input type="text" name="country" placeholder="e.g. India" class="box" required>
-         </div>
-         <div class="inputBox">
+         </div> -->
+         <!-- <div class="inputBox">
             <span>pin code :</span>
             <input type="number" min="0" name="pin_code" placeholder="e.g. 123456" class="box" required>
-         </div>
+         </div> -->
       </div>
 
       <input type="submit" name="order" class="btn <?= ($cart_grand_total > 1)?'':'disabled'; ?>" value="place order">

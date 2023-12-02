@@ -32,46 +32,11 @@
    color:var(--black);
 }
 
-.header .sidebar {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 23rem;
-   background-color: #333;
-   height: 100vh;
-   padding-top: 6rem;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: flex-start;
+
+.header .flex {
+   display: none !important;
 }
 
-.header .sidebar a {
-   color: white;
-   text-decoration: none;
-   font-size: 1.8rem;
-   padding: 1.5rem;
-   /* margin-bottom: 1rem; */
-   width: 100%;
-   text-align: center;
-   border-bottom: 1px solid white;
-}
-
-.header .sidebar a:hover {
-   background-color: #555;
-}
-
-.header .sidebar img{
-   height: 6rem;
-   width: 6rem;
-   margin-bottom: 4rem;
-}
-/* Add this media query to hide the sidebar on smaller screens */
-@media (max-width: 768px) {
-   .header .sidebar {
-      display: none;
-   }
-}
 
 .add-products form{
    max-width: 70rem;
@@ -433,16 +398,61 @@
 @media (max-width:768px){
 
    .add-products form .flex .inputBox{
-      width: 100%;
+      width: 80%;
    }
 
 
    .add-categories form .flex .inputBox{
-      width: 100%;
+      width: 80%;
    }
 }
 
+@media (max-width:1641px){
+   .show-products .box-container{
+      grid-template-columns: 2fr;
+   }
 
+  
+
+   .show-category .box-container{
+      grid-template-columns: 2fr;
+   }
+
+
+   .placed-orders .box-container{
+      grid-template-columns: 2fr;
+   }
+
+   .user-accounts .box-container{
+      grid-template-columns: 2fr;
+   }
+
+   .messages .box-container{
+      grid-template-columns: 2fr;
+   }
+
+
+   .header .sidebar{
+      display: none;
+   
+   }
+
+   .header .flex{
+      display:block !important;
+  
+   }
+
+
+ 
+
+
+}
+
+@media (max-width:800px){
+   .menu_btn{
+      display: block;
+   }
+}
 
 @media (max-width:450px){
 
@@ -452,7 +462,7 @@
 
    .update-product form img{
       height: auto;
-      width: 100%;
+      width: 80%;
    }
 
    .show-category .box-container{
@@ -461,8 +471,15 @@
 
    .update-category form img{
       height: auto;
-      width: 100%;
+      width: 80%;
    }
+
+
+.admin-product{
+   height: auto;
+      width: 80%;
+}
+
 
    .placed-orders .box-container{
       grid-template-columns: 1fr;
@@ -476,4 +493,11 @@
       grid-template-columns: 1fr;
    }
 
+
+   .header .flex{
+      display: block !important;
+   }
+   .menu_btn{
+      display: block !important;
+   }
 }
