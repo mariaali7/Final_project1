@@ -37,6 +37,9 @@ if(isset($_POST['send'])){
 
 }
 
+@include 'lang/change_language.php';
+@include 'lang/arabic.php';
+@include 'lang/english.php';
 ?>
 
 <!DOCTYPE html>
@@ -68,15 +71,16 @@ if(isset($_POST['send'])){
 
 <section class="contact">
 
-   <h1 class="title">Get in Touch</h1>
+<h1 class="title"><?php echo translate('get_in_touch'); ?></h1>
 
    <div class="contact-container">
       <form action="" method="POST" class="contact-form">
-         <input type="text" name="name" class="box" required placeholder="Enter your name">
-         <input type="email" name="email" class="box" required placeholder="Enter your email">
-         <input type="number" name="number" min="0" class="box" required placeholder="Enter your number">
-         <textarea name="msg" class="box" required placeholder="Enter your message" cols="30" rows="10"></textarea>
-         <input type="submit" value="Send Message" class="btn" name="send">
+      <input type="text" name="name" class="box" required placeholder="<?php echo translate('enter_your_name'); ?>">
+<input type="email" name="email" class="box" required placeholder="<?php echo translate('enter_your_email'); ?>">
+<input type="number" name="number" min="0" class="box" required placeholder="<?php echo translate('enter_your_number'); ?>">
+<textarea name="msg" class="box" required placeholder="<?php echo translate('enter_your_message'); ?>" cols="30" rows="10"></textarea>
+<input type="submit" value="<?php echo translate('send_message'); ?>" class="btn" name="send">
+
       </form>
 
       <div class="location">

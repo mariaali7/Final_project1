@@ -11,6 +11,7 @@ if(!isset($user_id)){
 };
 
 if(isset($_POST['add_to_cart'])){
+   if(isset($user_id)){
 
    $pid = $_POST['pid'];
    $pid = filter_var($pid, FILTER_SANITIZE_STRING);
@@ -22,13 +23,15 @@ if(isset($_POST['add_to_cart'])){
    $p_image = filter_var($p_image, FILTER_SANITIZE_STRING);
    $p_qty = $_POST['p_qty'];
    $p_qty = filter_var($p_qty, FILTER_SANITIZE_STRING);
+   $p_category = $_POST['p_category'];
+   $p_category = filter_var($p_category, FILTER_SANITIZE_STRING);
+
+
 
    $check_cart_numbers = $conn->prepare("SELECT * FROM `cart` WHERE name = ? AND user_id = ?");
    $check_cart_numbers->execute([$p_name, $user_id]);
 
-   if($check_cart_numbers->rowCount() > 0){
-      $message[] = 'already added to cart!';
-   }else{
+
 
       $check_wishlist_numbers = $conn->prepare("SELECT * FROM `wishlist` WHERE name = ? AND user_id = ?");
       $check_wishlist_numbers->execute([$p_name, $user_id]);
@@ -38,11 +41,16 @@ if(isset($_POST['add_to_cart'])){
          $delete_wishlist->execute([$p_name, $user_id]);
       }
 
-      $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
-      $insert_cart->execute([$user_id, $pid, $p_name, $p_price, $p_qty, $p_image]);
+     
+  
+   $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, category, image) VALUES(?,?,?,?,?,?,?)");
+      $insert_cart->execute([$user_id, $pid, $p_name, $p_price, $p_qty, $p_category, $p_image]);
       $message[] = 'added to cart!';
-   }
 
+} else {
+   header('location:login.php');
+   exit();
+}
 }
 
 if(isset($_GET['delete'])){
@@ -61,7 +69,9 @@ if(isset($_GET['delete_all'])){
    header('location:wishlist.php');
 
 }
-
+@include 'lang/change_language.php';
+@include 'lang/arabic.php';
+@include 'lang/english.php';
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +95,7 @@ if(isset($_GET['delete_all'])){
 
 <section class="wishlist">
 
-   <h1 class="title">products added</h1>
+<h1 class="title"><?php echo translate('products_added'); ?></h1>
 
    <div class="box-container">
 
@@ -93,6 +103,7 @@ if(isset($_GET['delete_all'])){
       $grand_total = 0;
       $select_wishlist = $conn->prepare("SELECT * FROM `wishlist` WHERE user_id = ?");
       $select_wishlist->execute([$user_id]);
+    
       if($select_wishlist->rowCount() > 0){
          while($fetch_wishlist = $select_wishlist->fetch(PDO::FETCH_ASSOC)){ 
    ?>
@@ -105,23 +116,26 @@ if(isset($_GET['delete_all'])){
       <input type="number" min="1" value="1" class="qty" name="p_qty">
       <input type="hidden" name="pid" value="<?= $fetch_wishlist['pid']; ?>">
       <input type="hidden" name="p_name" value="<?= $fetch_wishlist['name']; ?>">
+      <input type="hidden" name="p_category" value="<?= $fetch_wishlist['category']; ?>">
       <input type="hidden" name="p_price" value="<?= $fetch_wishlist['price']; ?>">
       <input type="hidden" name="p_image" value="<?= $fetch_wishlist['image']; ?>">
-      <input type="submit" value="add to cart" name="add_to_cart" class="btn">
+      <input type="submit" value="<?php echo translate('add_to_cart'); ?>" class="btn" name="add_to_cart">
+
    </form>
    <?php
       $grand_total += $fetch_wishlist['price'];
       }
    }else{
-      echo '<p class="empty">your wishlist is empty</p>';
+      echo '<p class="empty">' . translate('wishlist_empty_message') . '</p>';
    }
    ?>
    </div>
 
    <div class="wishlist-total">
-      <p>grand total : <span>$<?= $grand_total; ?>/-</span></p>
-      <a href="shop.php" class="option-btn">continue shopping</a>
-      <a href="wishlist.php?delete_all" class="delete-btn <?= ($grand_total > 1)?'':'disabled'; ?>">delete all</a>
+   <p><?php  echo translate('grand_total') ?>  <span><?= $grand_total; ?>JD</span></p>
+<a href="shop.php" class="option-btn"><?php echo translate('continue_shopping'); ?></a>
+<a href="wishlist.php?delete_all" class="delete-btn <?= ($grand_total > 1) ? '' : 'disabled'; ?>"><?php echo translate('delete_all'); ?></a>
+
    </div>
 
 </section>

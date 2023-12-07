@@ -62,7 +62,9 @@ if(isset($_POST['update_profile'])){
    }
 
 }
-
+@include 'lang/change_language.php';
+@include 'lang/arabic.php';
+@include 'lang/english.php';
 ?>
 
 <!DOCTYPE html>
@@ -86,35 +88,35 @@ if(isset($_POST['update_profile'])){
 
 <section class="update-profile">
 
-   <h1 class="title">update profile</h1>
+<h1 class="title"><?php echo translate('update_profile'); ?></h1>
 
-   <form action="" method="POST" enctype="multipart/form-data">
-      <img src="uploaded_img/<?= $fetch_profile['image']; ?>" alt="">
-      <div class="flex">
-         <div class="inputBox">
-            <span>username :</span>
-            <input type="text" name="name" value="<?= $fetch_profile['name']; ?>" placeholder="update username" required class="box">
-            <span>email :</span>
-            <input type="email" name="email" value="<?= $fetch_profile['email']; ?>" placeholder="update email" required class="box">
-            <span>update pic :</span>
+<form action="" method="POST" enctype="multipart/form-data">
+    <img src="uploaded_img/<?= $fetch_profile['image']; ?>" alt="">
+    <div class="flex">
+        <div class="inputBox">
+            <span dir="rtl" dir="ltr"><?php echo translate('username'); ?> </span>
+            <input type="text" name="name" value="<?= $fetch_profile['name']; ?>" placeholder="<?php echo translate('update_username'); ?>" required class="box">
+            <span dir="rtl"><?php echo translate('email'); ?> </span>
+            <input type="email" name="email" value="<?= $fetch_profile['email']; ?>" placeholder="<?php echo translate('update_email'); ?>" required class="box">
+            <span dir="rtl"><?php echo translate('update_pic'); ?> </span>
             <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box">
             <input type="hidden" name="old_image" value="<?= $fetch_profile['image']; ?>">
-         </div>
-         <div class="inputBox">
+        </div>
+        <div class="inputBox">
             <input type="hidden" name="old_pass" value="<?= $fetch_profile['password']; ?>">
-            <span>old password :</span>
-            <input type="password" name="update_pass" placeholder="enter previous password" class="box">
-            <span>new password :</span>
-            <input type="password" name="new_pass" placeholder="enter new password" class="box">
-            <span>confirm password :</span>
-            <input type="password" name="confirm_pass" placeholder="confirm new password" class="box">
-         </div>
-      </div>
-      <div class="flex-btn">
-         <input type="submit" class="btn" value="update profile" name="update_profile">
-         <a href="home.php" class="option-btn">go back</a>
-      </div>
-   </form>
+            <span dir="rtl"><?php echo translate('old_password'); ?> </span>
+            <input type="password" name="update_pass" placeholder="<?php echo translate('enter_previous_password'); ?>" class="box">
+            <span dir="rtl"><?php echo translate('new_password'); ?> </span>
+            <input type="password" name="new_pass" placeholder="<?php echo translate('enter_new_password'); ?>" class="box">
+            <span dir="rtl"><?php echo translate('confirm_password'); ?> </span>
+            <input type="password" name="confirm_pass" placeholder="<?php echo translate('confirm_new_password'); ?>" class="box">
+        </div>
+    </div>
+    <div class="flex-btn">
+        <input type="submit" class="btn" value="<?php echo translate('update_profile_button'); ?>" name="update_profile">
+        <a href="home.php" class="option-btn"><?php echo translate('go_back'); ?></a>
+    </div>
+</form>
 
 </section>
 

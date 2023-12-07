@@ -10,6 +10,13 @@ if (isset($_POST['submit'])) {
    $pass = $_POST['pass'];
    $cpass = $_POST['cpass'];
 
+
+   $image = $_FILES['image']['name'];
+   $image = filter_var($image, FILTER_SANITIZE_STRING);
+   $image_size = $_FILES['image']['size'];
+   $image_tmp_name = $_FILES['image']['tmp_name'];
+   $image_folder = 'uploaded_img/'.$image;
+
    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
        $message[] = 'Invalid email address!';
    }
@@ -24,37 +31,34 @@ if (isset($_POST['submit'])) {
    }
 
    if (empty($message)) {
-       $select = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
-       $select->execute([$email]);
-
-       if ($select->rowCount() > 0) {
-           $message[] = 'User email already exists!';
-       } else {
-           // Use password_hash for secure password hashing
-           $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
-
-           $image = $_FILES['image']['name'];
-           $image_size = $_FILES['image']['size'];
-           $image_tmp_name = $_FILES['image']['tmp_name'];
-           $image_folder = 'uploaded_img/' . $image;
-
-           $insert = $conn->prepare("INSERT INTO `users` (name, email, password, image) VALUES (?, ?, ?, ?)");
-           $insert->execute([$name, $email, $hashedPassword, $image]);
-
-           if ($insert) {
-               if ($image_size > 2000000) {
-                   $message[] = 'Image size is too large!';
-               } else {
-                   move_uploaded_file($image_tmp_name, $image_folder);
-                   $message[] = 'Registered successfully!';
-                   header('location: login.php');
-                   exit(); // Stop script execution after redirection
-               }
-           }
+    $select = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
+    $select->execute([$email]);
+ 
+    if($select->rowCount() > 0){
+       $message[] = 'user email already exist!';
+    }else{
+       if($pass != $cpass){
+          $message[] = 'confirm password not matched!';
+       }else{
+          $insert = $conn->prepare("INSERT INTO `users`(name, email, password, image) VALUES(?,?,?,?)");
+          $insert->execute([$name, $email, $pass, $image]);
+ 
+          if($insert){
+             if($image_size > 2000000){
+                $message[] = 'image size is too large!';
+             }else{
+                move_uploaded_file($image_tmp_name, $image_folder);
+                $message[] = 'registered successfully!';
+                header('location:login.php');
+             }
+          }
+ 
        }
-   }
+    }
 }
-?>
+ }
+ 
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">

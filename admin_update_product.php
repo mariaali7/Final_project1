@@ -18,8 +18,7 @@ if (isset($_POST['update_product'])) {
    $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
    $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
    $category = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
-   $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
-
+   
    $image = $_FILES['image']['name'];
    $image_size = $_FILES['image']['size'];
    $image_tmp_name = $_FILES['image']['tmp_name'];
@@ -28,8 +27,8 @@ if (isset($_POST['update_product'])) {
 
    // تحديث بيانات المنتج
 
-   $update_product = $conn->prepare("UPDATE `products` SET name = ?, category = ?, details = ?, price = ? WHERE id = ?");
-   $update_product->execute([$name, $category, $details, $price, $pid]);
+   $update_product = $conn->prepare("UPDATE `products` SET name = ?, category = ?,  price = ? WHERE id = ?");
+   $update_product->execute([$name, $category, $price, $pid]);
 
    $message[] = 'Product updated successfully!';
 
@@ -90,8 +89,7 @@ if (isset($_POST['update_product'])) {
       <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
       <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <input type="text" name="name" placeholder="enter product name" required class="box" value="<?= $fetch_products['name']; ?>">
-      <input type="number" name="price" min="0" placeholder="enter product price" required class="box" value="<?= $fetch_products['price']; ?>">
-      <select name="category" class="box" required>
+      <input type="text" pattern="^\d+(\.\d{1,2})?$" min="0" max="9999999999" required placeholder="Enter product price" name="price" class="box">      <select name="category" class="box" required>
       <?php
    
    // Retrieve categories from the database
@@ -108,7 +106,6 @@ if (isset($_POST['update_product'])) {
    ?>
 
       </select>
-      <textarea name="details" required placeholder="enter product details" class="box" cols="30" rows="10"><?= $fetch_products['details']; ?></textarea>
       <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">
       <div class="flex-btn">
          <input type="submit" class="btn" value="update product" name="update_product">

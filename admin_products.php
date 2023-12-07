@@ -18,9 +18,7 @@ if(isset($_POST['add_product'])){
    $price = filter_var($price, FILTER_SANITIZE_STRING);
    $category = $_POST['category'];
    $category = filter_var($category, FILTER_SANITIZE_STRING);
-   $details = $_POST['details'];
-   $details = filter_var($details, FILTER_SANITIZE_STRING);
-
+   
    $image = $_FILES['image']['name'];
    $image = filter_var($image, FILTER_SANITIZE_STRING);
    $image_size = $_FILES['image']['size'];
@@ -34,8 +32,8 @@ if(isset($_POST['add_product'])){
       $message[] = 'product name already exist!';
    }else{
 
-      $insert_products = $conn->prepare("INSERT INTO `products`(name, category, details, price, image) VALUES(?,?,?,?,?)");
-      $insert_products->execute([$name, $category, $details, $price, $image]);
+      $insert_products = $conn->prepare("INSERT INTO `products`(name, category,  price, image) VALUES(?,?,?,?)");
+      $insert_products->execute([$name, $category, $price, $image]);
 
       if($insert_products){
          if($image_size > 20000000){
@@ -114,11 +112,10 @@ if(isset($_GET['delete'])){
          </select>
          </div>
          <div class="inputBox">
-         <input type="number" min="0" name="price" class="box" required placeholder="enter product price">
+         <input type="text" pattern="^\d+(\.\d{1,2})?$" min="0" max="9999999999" required placeholder="Enter product price" name="price" class="box">
          <input type="file" name="image" required class="box" accept="image/jpg, image/jpeg, image/png">
          </div>
       </div>
-      <textarea name="details" class="box" required placeholder="enter product details" cols="30" rows="10"></textarea>
       <input type="submit" class="btn" value="add product" name="add_product">
    </form>
 

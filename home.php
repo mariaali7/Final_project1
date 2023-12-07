@@ -5,14 +5,12 @@
 session_start();
 
 
-
 if (isset($_SESSION['user_id'])) {
    $user_id = $_SESSION['user_id'];
    // Additional code related to logged-in user, if needed
 }
 
 if(isset($_POST['add_to_wishlist'])){
-   if(isset($user_id)){
 
    $pid = $_POST['pid'];
    $pid = filter_var($pid, FILTER_SANITIZE_STRING);
@@ -22,6 +20,10 @@ if(isset($_POST['add_to_wishlist'])){
    $p_price = filter_var($p_price, FILTER_SANITIZE_STRING);
    $p_image = $_POST['p_image'];
    $p_image = filter_var($p_image, FILTER_SANITIZE_STRING);
+   $p_category = $_POST['p_category'];
+   $p_category = filter_var($p_category, FILTER_SANITIZE_STRING);
+
+
 
    $check_wishlist_numbers = $conn->prepare("SELECT * FROM `wishlist` WHERE name = ? AND user_id = ?");
    $check_wishlist_numbers->execute([$p_name, $user_id]);
@@ -31,18 +33,12 @@ if(isset($_POST['add_to_wishlist'])){
 
    if($check_wishlist_numbers->rowCount() > 0){
       $message[] = 'already added to wishlist!';
-   }elseif($check_cart_numbers->rowCount() > 0){
-      $message[] = 'already added to cart!';
    }else{
-      $insert_wishlist = $conn->prepare("INSERT INTO `wishlist`(user_id, pid, name, price, image) VALUES(?,?,?,?,?)");
-      $insert_wishlist->execute([$user_id, $pid, $p_name, $p_price, $p_image]);
+      $insert_wishlist = $conn->prepare("INSERT INTO `wishlist`(user_id, pid, name, price, category, image) VALUES(?,?,?,?,?,?)");
+      $insert_wishlist->execute([$user_id, $pid, $p_name, $p_price, $p_category, $p_image]);
       $message[] = 'added to wishlist!';
    }
 
-} else {
-   header('location:login.php');
-   exit();
-}
 }
 
 if(isset($_POST['add_to_cart'])){
@@ -58,6 +54,10 @@ if(isset($_POST['add_to_cart'])){
    $p_image = filter_var($p_image, FILTER_SANITIZE_STRING);
    $p_qty = $_POST['p_qty'];
    $p_qty = filter_var($p_qty, FILTER_SANITIZE_STRING);
+   $p_category = $_POST['p_category'];
+   $p_category = filter_var($p_category, FILTER_SANITIZE_STRING);
+
+
 
    $check_cart_numbers = $conn->prepare("SELECT * FROM `cart` WHERE name = ? AND user_id = ?");
    $check_cart_numbers->execute([$p_name, $user_id]);
@@ -74,17 +74,21 @@ if(isset($_POST['add_to_cart'])){
          $delete_wishlist->execute([$p_name, $user_id]);
       }
 
-      $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
-      $insert_cart->execute([$user_id, $pid, $p_name, $p_price, $p_qty, $p_image]);
-      $message[] = 'added to cart!';
+    
    }
-
+  $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, category, image) VALUES(?,?,?,?,?,?,?)");
+      $insert_cart->execute([$user_id, $pid, $p_name, $p_price, $p_qty, $p_category, $p_image]);
+      $message[] = 'added to cart!';
 } else {
    header('location:login.php');
    exit();
 }
 }
 
+@include 'lang/arabic.php';
+@include 'lang/english.php';
+
+@include_once 'lang/change_language.php';
 
 
 ?>
@@ -121,14 +125,16 @@ if(isset($_POST['add_to_cart'])){
 
 <div class="home-bg">
 
-   <section class="home">
+   
 
-      <div class="content">
-         <span>Enjoy Our Selection</span>
-         <h3>Welcome to Abo Ala'a cafe</h3>
-         <p>Experience the perfect blend of coffee, refreshing milkshakes, and delightful juices.</p>
-         <a href="about.php" class="btn">Explore Our Menu</a>
-      </div>
+   <section class="home">
+   <div class="content">
+   <span ><?php echo translate('enjoy_selection'); ?></span>
+   <p><?php echo translate('welcome_cafe'); ?></p>
+   <p class="p2"><?php echo translate('experience_blend'); ?></p>
+   <a href="about.php" class="btn"><?php echo translate('explore_menu'); ?></a>
+    </div>
+
 
    </section>
 
@@ -136,7 +142,7 @@ if(isset($_POST['add_to_cart'])){
 
 <section class="home-category">
 
-   <h2 class="title">shop by category</h2>
+   <h2 class="title"><?php echo translate('shop_by_category'); ?></h2>
 
    <div class="box-container">
    <?php
@@ -155,8 +161,8 @@ if(isset($_POST['add_to_cart'])){
    
       <?php
          }
-      }else{
-         echo '<p class="empty">No products available!</p>';
+      } else {
+         echo '<p class="empty">' . translate('no_products_available') . '</p>';
       }
    ?>
 </div>
@@ -165,7 +171,7 @@ if(isset($_POST['add_to_cart'])){
 
 <section class="products">
 
-   <h1 class="title">latest products</h1>
+   <h1 class="title"><?php echo translate('latest_products'); ?></h1>
 
    <div class="box-container">
 
@@ -183,15 +189,16 @@ if(isset($_POST['add_to_cart'])){
       <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
       <input type="hidden" name="p_name" value="<?= $fetch_products['name']; ?>">
       <input type="hidden" name="p_price" value="<?= $fetch_products['price']; ?>">
+      <input type="hidden" name="p_category" value="<?= $fetch_products['category']; ?>">
       <input type="hidden" name="p_image" value="<?= $fetch_products['image']; ?>">
       <input type="number" min="1" value="1" name="p_qty" class="qty">
-      <input type="submit" value="add to wishlist" class="option-btn" name="add_to_wishlist">
-      <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+      <input type="submit" value="<?php echo translate('add_to_wishlist'); ?>" class="option-btn" name="add_to_wishlist">
+<input type="submit" value="<?php echo translate('add_to_cart'); ?>" class="btn" name="add_to_cart">
    </form>
    <?php
       }
    }else{
-      echo '<p class="empty">no products added yet!</p>';
+      echo '<p class="empty">' . translate('no_products_added_yet') . '</p>';
    }
    ?>
 

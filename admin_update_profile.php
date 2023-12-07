@@ -78,7 +78,59 @@ if(isset($_POST['update_profile'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/components.css">
+<style>
+   .header .flex{
+      display: none;
+   }
+   .header .sidebar {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 23rem;
+   background-color: #333;
+   height: 100vh;
+   padding-top: 6rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+}
 
+.header .sidebar a {
+   color: white;
+   text-decoration: none;
+   font-size: 1.8rem;
+   padding: 1.5rem;
+   /* margin-bottom: 1rem; */
+   width: 100%;
+   text-align: center;
+   border-bottom: 1px solid white;
+}
+
+.header .sidebar a:hover {
+   background-color: #555;
+}
+
+.header .sidebar img{
+   height: 6rem;
+   width: 6rem;
+   margin-bottom: 4rem;
+}
+
+
+.update-profile .form{
+   margin-left: 250px;
+}
+/* Add this media query to hide the sidebar on smaller screens */
+@media (max-width: 768px) {
+   .header .sidebar {
+      display: none;
+   }
+   #menu-btn{
+      display: block;
+   }
+}
+</style>
 </head>
 <body>
    

@@ -10,6 +10,9 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
+@include 'lang/change_language.php';
+@include 'lang/arabic.php';
+@include 'lang/english.php';
 ?>
 
 <!DOCTYPE html>
@@ -47,9 +50,8 @@ if(isset($_SESSION['user_id'])){
       </div>
 
       <div class="content">
-         <h3>why choose us?</h3>
-         <p>Welcome to Abou Alaa Cafe, where passion meets perfection in every sip. Our commitment to quality, handcrafted beverages sets us apart. We source the finest coffee beans, freshest ingredients, and craft each drink with love. Whether you're a coffee enthusiast, milkshake lover, or juice aficionado, we have something special for you.</p>
-
+      <h3><?php echo translate('why_choose_us'); ?></h3>
+    <p><?php echo translate('welcome_to_cafe'); ?></p>
       </div>
 
    </div>
@@ -62,10 +64,8 @@ if(isset($_SESSION['user_id'])){
 
 
 <div class="content">
-   <h3>Our Story</h3>
-
-   <p>Indulge your senses in a world of delightful flavors. At Abou Alaa Cafe, we offer a diverse menu that caters to every taste. From rich and aromatic coffees to creamy and decadent milkshakes, and refreshing, natural juices – our offerings are a celebration of taste and quality. Visit our shop and experience a symphony of flavors.</p>
- 
+<h3><?php echo translate('our_story'); ?></h3>
+<p><?php echo translate('indulge_your_senses'); ?></p>
 </div>
 <div class="image2">
    <img src="images/WhatsApp Image 2023-11-17 at 16.23.23 (1).jpeg" alt="">

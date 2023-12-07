@@ -1,13 +1,32 @@
 <?php
+session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   $language = $_POST['language'];
+if (!function_exists('translate')) {
+   function translate($phrase) {
+      global $translate;
 
-   // Store the selected language in the session
-   $_SESSION['language'] = $language;
+      if (isset($translate[$phrase])) {
+         return $translate[$phrase];
+      }
+
+      return $phrase;
+   }
 }
 
-// Redirect the user back to the previous page or a specific page
-header('Location: ' . $_SERVER['HTTP_REFERER']);
-exit();
+if (isset($_POST['language'])) {
+   $language = $_POST['language'];
+   $_SESSION['language'] = $language;
+} elseif (isset($_SESSION['language'])) {
+   $language = $_SESSION['language'];
+} else {
+   $language = "en";
+}
+
+$translate = array();
+
+if ($language === 'en') {
+    $translate = require 'lang/english.php';
+} elseif ($language === 'ar') {
+    $translate = require 'lang/arabic.php';
+}
 ?>

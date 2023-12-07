@@ -72,6 +72,9 @@ if(isset($message)){
    }
 }
 
+@include 'lang/change_language.php';
+@include 'lang/arabic.php';
+@include 'lang/english.php';
 ?>
    
 <section class="form-container">

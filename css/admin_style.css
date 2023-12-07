@@ -1,11 +1,13 @@
 @import url('components.css');
 
-.dashboard .box-container{
+.dashboard .box-container {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
-   gap:1.5rem;
+   gap: 1.5rem;
    align-items: flex-start;
-}
+   margin-left: 5rem;
+   margin-left: 250px; 
+ }
 
 .dashboard .box-container .box{
    padding:1.5rem;
@@ -14,6 +16,7 @@
    box-shadow: var(--box-shadow);
    background-color: var(--white);
    border-radius: .5rem;
+
 }
 
 .dashboard .box-container .box h3{
@@ -32,12 +35,55 @@
    color:var(--black);
 }
 
-
 .header .flex {
-   display: none !important;
+   display: flex;
+
+   display: none;
 }
 
 
+.header .sidebar {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 23rem;
+   background-color: #333;
+   height: 100vh;
+   padding-top: 6rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+   
+
+}
+ 
+
+
+.header .sidebar a {
+   color: white;
+   text-decoration: none;
+   font-size: 1.8rem;
+   padding: 1.5rem;
+   /* margin-bottom: 1rem; */
+   width: 100%;
+   text-align: center;
+   border-bottom: 1px solid white;
+}
+
+.header .sidebar a:hover {
+   background-color: #555;
+}
+
+.header .sidebar img{
+   height: 6rem;
+   width: 6rem;
+   margin-bottom: 4rem;
+}
+/* Add this media query to hide the sidebar on smaller screens */
+
+
+   
 .add-products form{
    max-width: 70rem;
    padding:2rem;
@@ -47,6 +93,8 @@
    box-shadow: var(--box-shadow);
    background-color: var(--white);
    border-radius: .5rem;
+   margin-left: 250px; 
+
 }
 
 .add-products form .flex{
@@ -85,6 +133,8 @@
    gap:1.5rem;
    align-items: flex-start;
    justify-content:center;
+   margin-left: 250px; 
+
 }
 
 .show-products .box-container .box{
@@ -140,6 +190,8 @@
    box-shadow: var(--box-shadow);
    background-color: var(--white);
    border-radius: .5rem;
+   margin-left: 250px; 
+
 }
 
 .update-product form img{
@@ -170,6 +222,8 @@
    box-shadow: var(--box-shadow);
    background-color: var(--white);
    border-radius: .5rem;
+   margin-left: 250px; 
+
 }
 
 .add-categories form .flex{
@@ -204,10 +258,12 @@
 
 .show-categories .box-container{
    display: grid;
-   grid-template-columns: repeat(auto-fit, 33rem);
+   grid-template-columns: repeat(auto-fit, 25rem);
    gap:1.5rem;
    align-items: flex-start;
    justify-content:center;
+   margin-left: 250px; 
+
 }
 
 .show-categories .box-container .box{
@@ -262,6 +318,7 @@
    box-shadow: var(--box-shadow);
    background-color: var(--white);
    border-radius: .5rem;
+   margin-left: 250px; 
 }
 
 .update-category form img{
@@ -286,10 +343,12 @@
 
 .placed-orders .box-container{
    display: grid;
-   grid-template-columns: repeat(auto-fit, 33rem);
+   grid-template-columns: repeat(auto-fit, 27rem);
    gap:1.5rem;
    align-items: flex-start;
    justify-content:center;
+   margin-left: 250px; 
+
 }
 
 .placed-orders .box-container .box{
@@ -323,10 +382,11 @@
 
 .user-accounts .box-container{
    display: grid;
-   grid-template-columns: repeat(auto-fit, 33rem);
+   grid-template-columns: repeat(auto-fit, 27rem);
    gap:1.5rem;
    align-items: flex-start;
    justify-content:center;
+   margin-left: 250px; 
 }
 
 .user-accounts .box-container .box{
@@ -359,7 +419,7 @@
 
 .messages .box-container{
    display: grid;
-   grid-template-columns: repeat(auto-fit, 33rem);
+   grid-template-columns: repeat(auto-fit, 27rem);
    gap:1.5rem;
    align-items: flex-start;
    justify-content:center;
@@ -387,7 +447,50 @@
 
 
 
+@media (max-width: 768px) {
+   .header .sidebar {
+      display: none;
+   }
+   #menu-btn{
+      display: inline;
+   }
+  .header .flex{
+   display: block;
+  }  
+  .dashboard .box-container {
+   margin-left: 0; /* تغيير القيمة عندما يكون عرض الشاشة أقل من 768px */
+}
+.show-categories .box-container{
+   margin-left: 0;
+}
+.placed-orders .box-container{
+   margin-left: 0;
+}
+.show-products .box-container{
+   margin-left: 0;
+}
+.messages .box-container{
+   margin-left: 0;
+}
+.user-accounts .box-container{
+   margin-left: 0;
+}
+.update-category form{
+   margin-left: 0;
+}
+.update-product form{
+   margin-left: 0;
+}
+.add-categories form{
+   margin-left: 0;
+}
 
+.add-products form{
+   margin-left: 0;
+}
+
+
+} 
 
 
 
@@ -398,61 +501,16 @@
 @media (max-width:768px){
 
    .add-products form .flex .inputBox{
-      width: 80%;
+      width: 100%;
    }
 
 
    .add-categories form .flex .inputBox{
-      width: 80%;
+      width: 100%;
    }
 }
 
-@media (max-width:1641px){
-   .show-products .box-container{
-      grid-template-columns: 2fr;
-   }
 
-  
-
-   .show-category .box-container{
-      grid-template-columns: 2fr;
-   }
-
-
-   .placed-orders .box-container{
-      grid-template-columns: 2fr;
-   }
-
-   .user-accounts .box-container{
-      grid-template-columns: 2fr;
-   }
-
-   .messages .box-container{
-      grid-template-columns: 2fr;
-   }
-
-
-   .header .sidebar{
-      display: none;
-   
-   }
-
-   .header .flex{
-      display:block !important;
-  
-   }
-
-
- 
-
-
-}
-
-@media (max-width:800px){
-   .menu_btn{
-      display: block;
-   }
-}
 
 @media (max-width:450px){
 
@@ -462,7 +520,7 @@
 
    .update-product form img{
       height: auto;
-      width: 80%;
+      width: 100%;
    }
 
    .show-category .box-container{
@@ -471,15 +529,8 @@
 
    .update-category form img{
       height: auto;
-      width: 80%;
+      width: 100%;
    }
-
-
-.admin-product{
-   height: auto;
-      width: 80%;
-}
-
 
    .placed-orders .box-container{
       grid-template-columns: 1fr;
@@ -493,11 +544,4 @@
       grid-template-columns: 1fr;
    }
 
-
-   .header .flex{
-      display: block !important;
-   }
-   .menu_btn{
-      display: block !important;
-   }
 }
